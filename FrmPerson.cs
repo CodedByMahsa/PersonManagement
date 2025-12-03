@@ -36,10 +36,9 @@ namespace PersonManagerDGV
                     rBtnUnknown.Checked = true;
             }
         }
-        public static int iD = 0;
+       // public static int iD = 0;
         public void btnSave_Click (object sender, EventArgs e) 
-        { 
-           
+        {  
             bool isEdit = false;
             if (person == null) 
             {
@@ -52,6 +51,7 @@ namespace PersonManagerDGV
              person.FirstName = txtFName.Text;
              person.LastName = txtLName.Text;
              person.NationalCode = txtNationalCode.Text;
+          //   Person.ID++;
             if (rBtnFemale.Checked)
                 person.Gender = Genders.Female;
             else if (rBtnMale.Checked)
@@ -60,13 +60,14 @@ namespace PersonManagerDGV
                 person.Gender = Genders.Unknown;
             if (!isEdit)
             {
-                person.ID = iD++;
+              //  Person.ID = +1;
                 personManager.Add(person);
             }
-            OperationResult result1 = OperationResult.ValidateInput(person);
-            if (!result1.IsSuccess) 
+           // OperationResult result1 = OperationResult.ValidateInput(person);
+            OperationResult operation = person.Validate();
+            if (!operation.IsSuccess) 
             {
-                AlertHelper.ShowError(result1.Message!);  
+                AlertHelper.ShowError(operation.Message!);  
                 return;
             }
             else

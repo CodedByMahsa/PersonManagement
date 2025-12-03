@@ -12,10 +12,11 @@ namespace PersonManagerDGV
 {
     public partial class FrmShowPeople : Form
     {
-        PersonManager personManager=new PersonManager();
+        PersonManager personManager;
         public FrmShowPeople()
         {
             InitializeComponent();
+            personManager = new PersonManager();
         }
         private void FrmShowPeople_Load(object sender, EventArgs e) 
         {
