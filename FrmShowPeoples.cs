@@ -12,11 +12,11 @@ namespace PersonManagerDGV
 {
     public partial class FrmShowPeople : Form
     {
-        PersonManager personManager;
+        StudentManager studentManager;
         public FrmShowPeople()
         {
             InitializeComponent();
-            personManager = new PersonManager();
+            studentManager = new StudentManager();
         }
         private void FrmShowPeople_Load(object sender, EventArgs e) 
         {
@@ -24,7 +24,7 @@ namespace PersonManagerDGV
         }
         private void FillDgv() 
         {
-            dgvPeople.DataSource = personManager.GetPeople().ToList();
+            dgvPeople.DataSource = studentManager.GetAll().ToList();
         }
         private void btnAdd_Click(object sender, EventArgs e) 
         {   
@@ -36,9 +36,9 @@ namespace PersonManagerDGV
             
             if(frmNewPerson.ShowDialog()==DialogResult.OK) 
             {
-              
                 FillDgv();
             }
+           
         }
         private void dgvPeople_CellcontentClick(object sender, DataGridViewCellEventArgs e) 
         {
@@ -50,26 +50,28 @@ namespace PersonManagerDGV
                 if (result == DialogResult.No)
                     return;
 
-                var person = dgvPeople.Rows[e.RowIndex].DataBoundItem as Person;
-                if (person != null) 
+                var student = dgvPeople.Rows[e.RowIndex].DataBoundItem as Student;
+                if(student != null)
                 {
-                    personManager.RemovePerson(person);
+                    studentManager.Remove(student);
                     FillDgv();
                 }
             }
             else if (e.ColumnIndex == dgvPeople.Columns[ColEdit.Name].Index && e.RowIndex >= 0) 
             {
-                var person = dgvPeople.Rows[e.RowIndex].DataBoundItem as Person;
+                var student = dgvPeople.Rows[e.RowIndex ].DataBoundItem as Student;
                 var frmNewPerson = new FrmPerson();
                 {
-                    frmNewPerson.Text = $"ویرایش {person.FullName}";
-                    frmNewPerson.person = person;
+                    frmNewPerson.Text = $"ویرایش {student.FullName}";
+                    frmNewPerson.student = student;
+                    //frmNewPerson.btnSaveAndNew.Enabled = false;
                     
                 }
                 if (frmNewPerson.ShowDialog() == DialogResult.OK)
                 {
                     FillDgv();
                 }
+               
             }
         }
     }

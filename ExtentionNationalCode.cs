@@ -8,7 +8,8 @@ namespace PersonManagerDGV
 {
 
     public static class ExtentionNationalCode
-    {
+    { 
+         
         public static bool CheckNational(this string NationalCode)
         {
             bool valid = true;

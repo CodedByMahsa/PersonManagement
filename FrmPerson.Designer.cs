@@ -38,8 +38,13 @@
             txtFName = new TextBox();
             txtLName = new TextBox();
             txtNationalCode = new TextBox();
-            btnSave = new Button();
+            btnSaveAndReturn = new Button();
             btnCancel = new Button();
+            label4 = new Label();
+            txtStudentCode = new TextBox();
+            label5 = new Label();
+            txtGrade = new TextBox();
+            btnSaveAndNew = new Button();
             gbGender.SuspendLayout();
             SuspendLayout();
             // 
@@ -47,7 +52,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(295, 47);
+            label1.Location = new Point(301, 27);
             label1.Name = "label1";
             label1.Size = new Size(43, 25);
             label1.TabIndex = 0;
@@ -57,7 +62,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(221, 99);
+            label2.Location = new Point(227, 69);
             label2.Name = "label2";
             label2.Size = new Size(117, 25);
             label2.TabIndex = 0;
@@ -67,7 +72,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(262, 154);
+            label3.Location = new Point(268, 117);
             label3.Name = "label3";
             label3.Size = new Size(76, 25);
             label3.TabIndex = 0;
@@ -78,7 +83,7 @@
             gbGender.Controls.Add(rBtnUnknown);
             gbGender.Controls.Add(rBtnFemale);
             gbGender.Controls.Add(rBtnMale);
-            gbGender.Location = new Point(175, 211);
+            gbGender.Location = new Point(125, 281);
             gbGender.Name = "gbGender";
             gbGender.Size = new Size(163, 158);
             gbGender.TabIndex = 3;
@@ -120,66 +125,118 @@
             // 
             // txtFName
             // 
-            txtFName.Location = new Point(133, 48);
+            txtFName.Location = new Point(142, 28);
             txtFName.Name = "txtFName";
             txtFName.Size = new Size(146, 27);
             txtFName.TabIndex = 0;
             // 
             // txtLName
             // 
-            txtLName.Location = new Point(54, 100);
+            txtLName.Location = new Point(56, 70);
             txtLName.Name = "txtLName";
             txtLName.Size = new Size(161, 27);
             txtLName.TabIndex = 1;
             // 
             // txtNationalCode
             // 
-            txtNationalCode.Location = new Point(102, 155);
+            txtNationalCode.Location = new Point(100, 118);
             txtNationalCode.Name = "txtNationalCode";
             txtNationalCode.Size = new Size(154, 27);
             txtNationalCode.TabIndex = 2;
             // 
-            // btnSave
+            // btnSaveAndReturn
             // 
-            btnSave.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnSave.ForeColor = Color.Green;
-            btnSave.Location = new Point(198, 407);
-            btnSave.Name = "btnSave";
-            btnSave.Size = new Size(96, 53);
-            btnSave.TabIndex = 4;
-            btnSave.Text = "ذخیره ";
-            btnSave.UseVisualStyleBackColor = true;
-            btnSave.Click += btnSave_Click;
+            btnSaveAndReturn.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnSaveAndReturn.ForeColor = Color.Green;
+            btnSaveAndReturn.Location = new Point(269, 461);
+            btnSaveAndReturn.Name = "btnSaveAndReturn";
+            btnSaveAndReturn.Size = new Size(96, 70);
+            btnSaveAndReturn.TabIndex = 4;
+            btnSaveAndReturn.Text = "ذخیره و بازگشت";
+            btnSaveAndReturn.UseVisualStyleBackColor = true;
+            btnSaveAndReturn.Click += btnSaveAndReturn_Click;
             // 
             // btnCancel
             // 
             btnCancel.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnCancel.ForeColor = Color.FromArgb(192, 0, 0);
-            btnCancel.Location = new Point(75, 407);
+            btnCancel.Location = new Point(25, 461);
             btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(96, 53);
+            btnCancel.Size = new Size(96, 70);
             btnCancel.TabIndex = 5;
             btnCancel.Text = "انصراف ";
             btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label4.Location = new Point(214, 164);
+            label4.Name = "label4";
+            label4.Size = new Size(130, 25);
+            label4.TabIndex = 0;
+            label4.Text = "کد دانش آموزی:";
+            // 
+            // txtStudentCode
+            // 
+            txtStudentCode.Location = new Point(45, 165);
+            txtStudentCode.Name = "txtStudentCode";
+            txtStudentCode.Size = new Size(158, 27);
+            txtStudentCode.TabIndex = 0;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label5.Location = new Point(230, 219);
+            label5.Name = "label5";
+            label5.Size = new Size(114, 25);
+            label5.TabIndex = 0;
+            label5.Text = "پایه تحصیلی :";
+            // 
+            // txtGrade
+            // 
+            txtGrade.Location = new Point(58, 220);
+            txtGrade.Name = "txtGrade";
+            txtGrade.Size = new Size(158, 27);
+            txtGrade.TabIndex = 0;
+            // 
+            // btnSaveAndNew
+            // 
+            btnSaveAndNew.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnSaveAndNew.ForeColor = Color.Green;
+            btnSaveAndNew.Location = new Point(147, 461);
+            btnSaveAndNew.Name = "btnSaveAndNew";
+            btnSaveAndNew.Size = new Size(96, 70);
+            btnSaveAndNew.TabIndex = 4;
+            btnSaveAndNew.Text = "ذخیره و ثبت جدید";
+            btnSaveAndNew.UseVisualStyleBackColor = true;
+            btnSaveAndNew.Click += btnSaveAndNew_Click;
             // 
             // FrmPerson
             // 
             AcceptButton = btnCancel;
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(366, 493);
+            ClientSize = new Size(397, 543);
             Controls.Add(btnCancel);
-            Controls.Add(btnSave);
+            Controls.Add(btnSaveAndNew);
+            Controls.Add(btnSaveAndReturn);
             Controls.Add(txtNationalCode);
             Controls.Add(txtLName);
+            Controls.Add(txtGrade);
+            Controls.Add(txtStudentCode);
             Controls.Add(txtFName);
             Controls.Add(gbGender);
             Controls.Add(label3);
+            Controls.Add(label5);
+            Controls.Add(label4);
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "FrmPerson";
             RightToLeft = RightToLeft.Yes;
             Text = "FrmPerson";
-            Load += this.FrmPerson_Load;
+            Load += FrmPerson_Load;
             gbGender.ResumeLayout(false);
             gbGender.PerformLayout();
             ResumeLayout(false);
@@ -198,7 +255,12 @@
         private TextBox txtFName;
         private TextBox txtLName;
         private TextBox txtNationalCode;
-        private Button btnSave;
+        private Button btnSaveAndReturn;
         private Button btnCancel;
+        private Label label4;
+        private TextBox txtStudentCode;
+        private Label label5;
+        private TextBox txtGrade;
+        private Button btnSaveAndNew;
     }
 }

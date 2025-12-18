@@ -40,6 +40,8 @@
             LastName = new DataGridViewTextBoxColumn();
             FullName = new DataGridViewTextBoxColumn();
             NationalCode = new DataGridViewTextBoxColumn();
+            StudentCode = new DataGridViewTextBoxColumn();
+            Grade = new DataGridViewTextBoxColumn();
             Gender = new DataGridViewTextBoxColumn();
             GenderText = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
@@ -67,7 +69,7 @@
             // 
             splitContainer1.Panel2.Controls.Add(dgvPeople);
             splitContainer1.Panel2.RightToLeft = RightToLeft.Yes;
-            splitContainer1.Size = new Size(800, 450);
+            splitContainer1.Size = new Size(1052, 450);
             splitContainer1.SplitterDistance = 79;
             splitContainer1.TabIndex = 0;
             // 
@@ -86,7 +88,7 @@
             // txtSearch
             // 
             txtSearch.Anchor = AnchorStyles.Right;
-            txtSearch.Location = new Point(530, 21);
+            txtSearch.Location = new Point(782, 21);
             txtSearch.Multiline = true;
             txtSearch.Name = "txtSearch";
             txtSearch.Size = new Size(182, 35);
@@ -97,7 +99,7 @@
             label1.Anchor = AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(718, 25);
+            label1.Location = new Point(970, 25);
             label1.Name = "label1";
             label1.Size = new Size(73, 25);
             label1.TabIndex = 0;
@@ -108,13 +110,13 @@
             dgvPeople.AllowUserToAddRows = false;
             dgvPeople.AllowUserToDeleteRows = false;
             dgvPeople.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvPeople.Columns.AddRange(new DataGridViewColumn[] { ColEdit, ColDelete, ID, FirstNme, LastName, FullName, NationalCode, Gender, GenderText });
+            dgvPeople.Columns.AddRange(new DataGridViewColumn[] { ColEdit, ColDelete, ID, FirstNme, LastName, FullName, NationalCode, StudentCode, Grade, Gender, GenderText });
             dgvPeople.Dock = DockStyle.Fill;
             dgvPeople.Location = new Point(0, 0);
             dgvPeople.Name = "dgvPeople";
             dgvPeople.ReadOnly = true;
             dgvPeople.RowHeadersWidth = 51;
-            dgvPeople.Size = new Size(800, 367);
+            dgvPeople.Size = new Size(1052, 367);
             dgvPeople.TabIndex = 0;
             dgvPeople.CellContentClick += dgvPeople_CellcontentClick;
             // 
@@ -181,6 +183,24 @@
             NationalCode.ReadOnly = true;
             NationalCode.Width = 125;
             // 
+            // StudentCode
+            // 
+            StudentCode.DataPropertyName = "StudentCode";
+            StudentCode.HeaderText = "کد دانش آموزی";
+            StudentCode.MinimumWidth = 6;
+            StudentCode.Name = "StudentCode";
+            StudentCode.ReadOnly = true;
+            StudentCode.Width = 125;
+            // 
+            // Grade
+            // 
+            Grade.DataPropertyName = "Grade";
+            Grade.HeaderText = "پایه تحصیلی";
+            Grade.MinimumWidth = 6;
+            Grade.Name = "Grade";
+            Grade.ReadOnly = true;
+            Grade.Width = 125;
+            // 
             // Gender
             // 
             Gender.DataPropertyName = "Gender";
@@ -204,7 +224,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1052, 450);
             Controls.Add(splitContainer1);
             Name = "FrmShowPeople";
             RightToLeft = RightToLeft.Yes;
@@ -233,6 +253,8 @@
         private DataGridViewTextBoxColumn LastName;
         private DataGridViewTextBoxColumn FullName;
         private DataGridViewTextBoxColumn NationalCode;
+        private DataGridViewTextBoxColumn StudentCode;
+        private DataGridViewTextBoxColumn Grade;
         private DataGridViewTextBoxColumn Gender;
         private DataGridViewTextBoxColumn GenderText;
     }
