@@ -11,5 +11,10 @@ namespace PersonManagerDGV
         {
             new FrmShowPeople().Show();
         }
+
+        private void btnManageTeachers_Click(object sender, EventArgs e)
+        {
+            new FrmShowMasters().Show();
+        }
     }
 }

@@ -6,33 +6,50 @@ using System.Threading.Tasks;
 
 namespace PersonManagerDGV
 {
-    internal class TeacherManager
+    public class TeacherManager
     {
         private static List<Teacher> teachers;
+
+        public event Action<IReadOnlyList<Teacher>> TeachersChanged;
         public TeacherManager()
         {
             if (teachers == null)
                 teachers = new List<Teacher>();
         }
-
+        private void OnTeachersChanged()
+        {
+            TeachersChanged?.Invoke(GetAll());
+        }
+       
         public OperationResult Add(Teacher teacher)
         {
+            ///Here you are trying to add a teacher just like studentManager 
             var result = teacher.Validate();
             if (!result.IsSuccess)
                 return result;
-            //students.ID = id++;
-            teachers.Add(teacher);
 
-            return OperationResult.Success();
+            if (teachers.Any(s => s.NationalCode == teacher.NationalCode))
+                return OperationResult.Failed(Messages.DuplicateNationalCode);
+
+            if (teachers.Any(s => s.Major == teacher.Major))
+                return OperationResult.Failed(Messages.DuplicateStudentCode);
+            
+                teachers.Add(teacher);
+
+                OnTeachersChanged(); //Notify ui
+
+            return OperationResult.Success(Messages.InsertSuccessStudent);
+           
         }
         public void Edit(Teacher teacher)
         {
-
+            //object is already modified by reference
+            OnTeachersChanged();
         }
         public void Remove(Teacher teacher)
         {
-            //id = id - 1;
             teachers.Remove(teacher);
+            OnTeachersChanged();
         }
         internal IReadOnlyList<Teacher> GetAll()
         {
@@ -40,7 +57,7 @@ namespace PersonManagerDGV
             ///Creates a new list
             ///this way they cant add or remove anything from the list cuz its readonly!
             ///</summary>
-            return teachers;
+            return teachers.AsReadOnly();
         }
     }
 }

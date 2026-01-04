@@ -8,7 +8,7 @@ namespace PersonManagerDGV
 {
     internal class StudentManager
     {
-        private static int id = 0;
+       // private static int id = 0;
         private static List<Student> students ;
         public StudentManager()
         {
@@ -23,15 +23,15 @@ namespace PersonManagerDGV
                 return result;
 
             if (students.Any(s => s.NationalCode == student.NationalCode))
-                return OperationResult.Failed("کد ملی تکراری است!");
+                return OperationResult.Failed(Messages.DuplicateNationalCode);
 
             if (students.Any(s => s.StudentCode == student.StudentCode))
-                return OperationResult.Failed("کد دانش آموزی تکراری است!");
+                return OperationResult.Failed(Messages.DuplicateStudentCode);
 
-            student.ID = id++;
+           // student.ID = id++;
             students.Add(student);
             
-            return OperationResult.Success();
+            return OperationResult.Success(Messages.InsertSuccessStudent);
         }
         public OperationResult Edit(Student student)
         {
@@ -40,17 +40,17 @@ namespace PersonManagerDGV
                 return result;
 
             if (students.Any(s => s.NationalCode == student.NationalCode))
-                return OperationResult.Failed("کد ملی تکراری است!");
+                return OperationResult.Failed(Messages.DuplicateNationalCode);
 
             if (students.Any(s => s.StudentCode == student.StudentCode))
-                return OperationResult.Failed("کد دانش آموزی تکراری است!");
+                return OperationResult.Failed(Messages.DuplicateStudentCode);
 
-            return OperationResult.Success();
+            return OperationResult.Success(Messages.EditSuccessStudent);
 
         }
         public void Remove(Student student)
         {
-            id = id - 1;
+            //id = id - 1;
             students.Remove(student);
         }
         internal IReadOnlyList<Student> GetAll()

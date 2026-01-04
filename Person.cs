@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ namespace PersonManagerDGV
 {
     public class Person
     {
-        public int ID { get; set; } 
+       // public int ID { get; set; } 
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public virtual string FullName
@@ -34,23 +35,24 @@ namespace PersonManagerDGV
                 }
             }
         }
-       public OperationResult Validate() 
+       public virtual OperationResult Validate() 
        {
             if (string.IsNullOrWhiteSpace(FirstName))
-                return OperationResult.Failed("نام خود را درست وارد کنید!");
+                return OperationResult.Failed(Messages.InCorrectName);
 
             if (string.IsNullOrWhiteSpace(LastName))
-                return OperationResult.Failed("نام خانوادگی خود را درست وارد کنید!");
+                return OperationResult.Failed(Messages.InCorrectLastName);
 
             if (!NationalCode.CheckNational())
-                return OperationResult.Failed("کد ملی معتبر نیست!");
+                return OperationResult.Failed(Messages.InCorrectNationalCode);
 
             if (string.IsNullOrWhiteSpace(GenderText))
-                return OperationResult.Failed("جنسیت معتبر نیست!");
+                return OperationResult.Failed(Messages.InValidGender);
          
-            return OperationResult.Success();
+            return OperationResult.Success(Messages.InsertSuccessStudent);
            
        }
+       
     }
 }
 

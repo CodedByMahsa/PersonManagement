@@ -35,7 +35,6 @@
             dgvPeople = new DataGridView();
             ColEdit = new DataGridViewButtonColumn();
             ColDelete = new DataGridViewButtonColumn();
-            ID = new DataGridViewTextBoxColumn();
             FirstNme = new DataGridViewTextBoxColumn();
             LastName = new DataGridViewTextBoxColumn();
             FullName = new DataGridViewTextBoxColumn();
@@ -110,7 +109,7 @@
             dgvPeople.AllowUserToAddRows = false;
             dgvPeople.AllowUserToDeleteRows = false;
             dgvPeople.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvPeople.Columns.AddRange(new DataGridViewColumn[] { ColEdit, ColDelete, ID, FirstNme, LastName, FullName, NationalCode, StudentCode, Grade, Gender, GenderText });
+            dgvPeople.Columns.AddRange(new DataGridViewColumn[] { ColEdit, ColDelete, FirstNme, LastName, FullName, NationalCode, StudentCode, Grade, Gender, GenderText });
             dgvPeople.Dock = DockStyle.Fill;
             dgvPeople.Location = new Point(0, 0);
             dgvPeople.Name = "dgvPeople";
@@ -135,15 +134,6 @@
             ColDelete.Name = "ColDelete";
             ColDelete.ReadOnly = true;
             ColDelete.Width = 125;
-            // 
-            // ID
-            // 
-            ID.DataPropertyName = "ID";
-            ID.HeaderText = "شناسه";
-            ID.MinimumWidth = 6;
-            ID.Name = "ID";
-            ID.ReadOnly = true;
-            ID.Width = 125;
             // 
             // FirstNme
             // 
@@ -248,7 +238,6 @@
         private DataGridView dgvPeople;
         private DataGridViewButtonColumn ColEdit;
         private DataGridViewButtonColumn ColDelete;
-        private DataGridViewTextBoxColumn ID;
         private DataGridViewTextBoxColumn FirstNme;
         private DataGridViewTextBoxColumn LastName;
         private DataGridViewTextBoxColumn FullName;
