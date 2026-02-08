@@ -34,6 +34,16 @@
             txtSearch = new TextBox();
             label1 = new Label();
             dgvTeachers = new DataGridView();
+            ColEdit = new DataGridViewButtonColumn();
+            ColDelete = new DataGridViewButtonColumn();
+            FirstName = new DataGridViewTextBoxColumn();
+            LastName = new DataGridViewTextBoxColumn();
+            FullName = new DataGridViewTextBoxColumn();
+            NationalCode = new DataGridViewTextBoxColumn();
+            PhoneNumber = new DataGridViewTextBoxColumn();
+            Address = new DataGridViewTextBoxColumn();
+            Gender = new DataGridViewTextBoxColumn();
+            GenderText = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -54,12 +64,13 @@
             splitContainer1.Panel1.Controls.Add(btnCompare);
             splitContainer1.Panel1.Controls.Add(txtSearch);
             splitContainer1.Panel1.Controls.Add(label1);
-            splitContainer1.Panel1.RightToLeft = RightToLeft.No;
+            splitContainer1.Panel1.RightToLeft = RightToLeft.Yes;
             // 
             // splitContainer1.Panel2
             // 
             splitContainer1.Panel2.Controls.Add(dgvTeachers);
-            splitContainer1.Panel2.RightToLeft = RightToLeft.No;
+            splitContainer1.Panel2.RightToLeft = RightToLeft.Yes;
+            splitContainer1.RightToLeft = RightToLeft.Yes;
             splitContainer1.Size = new Size(800, 450);
             splitContainer1.SplitterDistance = 86;
             splitContainer1.TabIndex = 0;
@@ -109,13 +120,109 @@
             // 
             // dgvTeachers
             // 
+            dgvTeachers.AllowUserToAddRows = false;
+            dgvTeachers.AllowUserToDeleteRows = false;
             dgvTeachers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvTeachers.Columns.AddRange(new DataGridViewColumn[] { ColEdit, ColDelete, FirstName, LastName, FullName, NationalCode, PhoneNumber, Address, Gender, GenderText });
             dgvTeachers.Dock = DockStyle.Fill;
             dgvTeachers.Location = new Point(0, 0);
             dgvTeachers.Name = "dgvTeachers";
+            dgvTeachers.ReadOnly = true;
             dgvTeachers.RowHeadersWidth = 51;
             dgvTeachers.Size = new Size(800, 360);
             dgvTeachers.TabIndex = 0;
+            dgvTeachers.CellContentClick += dgvTeachers_CellContentClick;
+            // 
+            // ColEdit
+            // 
+            ColEdit.HeaderText = "ویرایش";
+            ColEdit.MinimumWidth = 6;
+            ColEdit.Name = "ColEdit";
+            ColEdit.ReadOnly = true;
+            ColEdit.Width = 125;
+            // 
+            // ColDelete
+            // 
+            ColDelete.HeaderText = "حذف";
+            ColDelete.MinimumWidth = 6;
+            ColDelete.Name = "ColDelete";
+            ColDelete.ReadOnly = true;
+            ColDelete.Width = 125;
+            // 
+            // FirstName
+            // 
+            FirstName.DataPropertyName = "FirstName";
+            FirstName.HeaderText = "نام";
+            FirstName.MinimumWidth = 6;
+            FirstName.Name = "FirstName";
+            FirstName.ReadOnly = true;
+            FirstName.Visible = false;
+            FirstName.Width = 125;
+            // 
+            // LastName
+            // 
+            LastName.DataPropertyName = "LastName";
+            LastName.HeaderText = "نام خانوادگی";
+            LastName.MinimumWidth = 6;
+            LastName.Name = "LastName";
+            LastName.ReadOnly = true;
+            LastName.Visible = false;
+            LastName.Width = 125;
+            // 
+            // FullName
+            // 
+            FullName.DataPropertyName = "FullName";
+            FullName.HeaderText = "نام شخص";
+            FullName.MinimumWidth = 6;
+            FullName.Name = "FullName";
+            FullName.ReadOnly = true;
+            FullName.Width = 125;
+            // 
+            // NationalCode
+            // 
+            NationalCode.DataPropertyName = "NationalCode";
+            NationalCode.HeaderText = "کد ملی";
+            NationalCode.MinimumWidth = 6;
+            NationalCode.Name = "NationalCode";
+            NationalCode.ReadOnly = true;
+            NationalCode.Width = 125;
+            // 
+            // PhoneNumber
+            // 
+            PhoneNumber.DataPropertyName = "PhoneNumber";
+            PhoneNumber.HeaderText = "شماره تلفن";
+            PhoneNumber.MinimumWidth = 6;
+            PhoneNumber.Name = "PhoneNumber";
+            PhoneNumber.ReadOnly = true;
+            PhoneNumber.Width = 125;
+            // 
+            // Address
+            // 
+            Address.DataPropertyName = "Address";
+            Address.HeaderText = "نشانی";
+            Address.MinimumWidth = 6;
+            Address.Name = "Address";
+            Address.ReadOnly = true;
+            Address.Width = 125;
+            // 
+            // Gender
+            // 
+            Gender.DataPropertyName = "Gender";
+            Gender.HeaderText = "نوع جنسیت";
+            Gender.MinimumWidth = 6;
+            Gender.Name = "Gender";
+            Gender.ReadOnly = true;
+            Gender.Visible = false;
+            Gender.Width = 125;
+            // 
+            // GenderText
+            // 
+            GenderText.DataPropertyName = "GenderText";
+            GenderText.HeaderText = "جنسیت";
+            GenderText.MinimumWidth = 6;
+            GenderText.Name = "GenderText";
+            GenderText.ReadOnly = true;
+            GenderText.Width = 125;
             // 
             // FrmShowMasters
             // 
@@ -143,5 +250,15 @@
         private Label label1;
         private Button btnCompare;
         private Button btnAdd;
+        private DataGridViewButtonColumn ColEdit;
+        private DataGridViewButtonColumn ColDelete;
+        private DataGridViewTextBoxColumn FirstName;
+        private DataGridViewTextBoxColumn LastName;
+        private DataGridViewTextBoxColumn FullName;
+        private DataGridViewTextBoxColumn NationalCode;
+        private DataGridViewTextBoxColumn PhoneNumber;
+        private DataGridViewTextBoxColumn Address;
+        private DataGridViewTextBoxColumn Gender;
+        private DataGridViewTextBoxColumn GenderText;
     }
 }

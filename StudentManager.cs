@@ -8,14 +8,12 @@ namespace PersonManagerDGV
 {
     internal class StudentManager
     {
-       // private static int id = 0;
         private static List<Student> students ;
         public StudentManager()
         {
             if (students == null)
                 students = new List<Student>();
         }
-       
         public OperationResult Add(Student student)
         {
             var result = student.Validate();
@@ -27,8 +25,7 @@ namespace PersonManagerDGV
 
             if (students.Any(s => s.StudentCode == student.StudentCode))
                 return OperationResult.Failed(Messages.DuplicateStudentCode);
-
-           // student.ID = id++;
+          
             students.Add(student);
             
             return OperationResult.Success(Messages.InsertSuccessStudent);
@@ -45,12 +42,12 @@ namespace PersonManagerDGV
             if (students.Any(s => s.StudentCode == student.StudentCode))
                 return OperationResult.Failed(Messages.DuplicateStudentCode);
 
+            students.Add(student);
             return OperationResult.Success(Messages.EditSuccessStudent);
 
         }
         public void Remove(Student student)
         {
-            //id = id - 1;
             students.Remove(student);
         }
         internal IReadOnlyList<Student> GetAll()

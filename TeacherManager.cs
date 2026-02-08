@@ -10,19 +10,15 @@ namespace PersonManagerDGV
     {
         private static List<Teacher> teachers;
 
-        public event Action<IReadOnlyList<Teacher>> TeachersChanged;
         public TeacherManager()
         {
             if (teachers == null)
                 teachers = new List<Teacher>();
         }
-        private void OnTeachersChanged()
-        {
-            TeachersChanged?.Invoke(GetAll());
-        }
        
         public OperationResult Add(Teacher teacher)
         {
+            //if(String.IsNullOrWhiteSpace(teacher.FirstName))
             ///Here you are trying to add a teacher just like studentManager 
             var result = teacher.Validate();
             if (!result.IsSuccess)
@@ -36,20 +32,18 @@ namespace PersonManagerDGV
             
                 teachers.Add(teacher);
 
-                OnTeachersChanged(); //Notify ui
-
             return OperationResult.Success(Messages.InsertSuccessStudent);
            
         }
         public void Edit(Teacher teacher)
         {
             //object is already modified by reference
-            OnTeachersChanged();
+            //OnTeachersChanged();
         }
         public void Remove(Teacher teacher)
         {
             teachers.Remove(teacher);
-            OnTeachersChanged();
+           // OnTeachersChanged();
         }
         internal IReadOnlyList<Teacher> GetAll()
         {
@@ -57,7 +51,7 @@ namespace PersonManagerDGV
             ///Creates a new list
             ///this way they cant add or remove anything from the list cuz its readonly!
             ///</summary>
-            return teachers.AsReadOnly();
+            return teachers;
         }
     }
 }

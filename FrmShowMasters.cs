@@ -13,30 +13,27 @@ namespace PersonManagerDGV
     public partial class FrmShowMasters : Form
     {
         TeacherManager teacherManager;
+        FrmMaster frmAdd;
 
         public FrmShowMasters()
         {
             InitializeComponent();
+            frmAdd = new FrmMaster(FillDGVTeacher);
             teacherManager = new TeacherManager();
-            teacherManager.TeachersChanged += TeacherManager_TeachersChanged;
         }
-        /*  private void FillDgv()
+        private void FillDGVTeacher()
         {
             dgvTeachers.DataSource = teacherManager.GetAll().ToList();
-        }*/
+        }
+
         private void FrmShowMasters_Load(object sender, EventArgs e)
         {
-            dgvTeachers.AutoGenerateColumns = true;
-            dgvTeachers.DataSource = teacherManager.GetAll().ToList();
+            FillDGVTeacher();
         }
-        private void TeacherManager_TeachersChanged(IReadOnlyList<Teacher> teachers)
-        {
-            dgvTeachers.DataSource = null;
-            dgvTeachers.DataSource = teachers.ToList();
-        }
+
         private void btnCompare_Click(object sender, EventArgs e)
         {
-            if (dgvTeachers.SelectedRows.Count > 0) 
+            if (dgvTeachers.SelectedRows.Count > 0)
             {
                 foreach (var item in dgvTeachers.Rows)
                 {
@@ -50,11 +47,45 @@ namespace PersonManagerDGV
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            var frmNewTeacher = new FrmMaster(teacherManager);
-            frmNewTeacher.Text = "شخص جدید";
-            frmNewTeacher.ShowDialog();
+            FrmMaster master = new FrmMaster(FillDGVTeacher);
+            master.Text = "شخص جدید";
+            master.Show();
         }
 
-       
+        private void dgvTeachers_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+            if (e.ColumnIndex == dgvTeachers.Columns[ColDelete.Name].Index && e.RowIndex >= 0)
+            {
+                var result = AlertHelper.ShowQuestion("آیا میخواهید این فردا را حذف کنید؟");
+                if (result == DialogResult.No)
+                    return;
+
+                var teacher = dgvTeachers.Rows[e.RowIndex].DataBoundItem as Teacher;
+                if (teacher != null)
+                {
+                    teacherManager.Remove(teacher);
+                    FillDGVTeacher();
+
+                    // FillDgv();
+                }
+            }
+            else if (e.ColumnIndex == dgvTeachers.Columns[ColEdit.Name].Index && e.RowIndex >= 0)
+            {
+                var teacher = dgvTeachers.Rows[e.RowIndex].DataBoundItem as Teacher;
+                var frmNewTeacher = new FrmMaster();
+                {
+                    frmNewTeacher.Text = $"ویرایش {teacher.FullName}";
+                    frmNewTeacher.teacher = teacher;
+                    //frmNewPerson.btnSaveAndNew.Enabled = false;
+
+                }
+                if (frmNewTeacher.ShowDialog() == DialogResult.OK)
+                {
+                    FillDGVTeacher();
+                }
+            }
+        }
     }
 }

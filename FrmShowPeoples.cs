@@ -13,31 +13,36 @@ namespace PersonManagerDGV
     public partial class FrmShowPeople : Form
     {
         StudentManager studentManager;
+        FrmMaster frmAdd;
+        public bool IsSql = false;
+        public bool IsList = false;
+
         public FrmShowPeople()
         {
             InitializeComponent();
+            frmAdd= new FrmMaster(FillDGVStudent);
             studentManager = new StudentManager();
+            
         }
+       
         private void FrmShowPeople_Load(object sender, EventArgs e) 
         {
-            FillDgv();
+            FillDGVStudent();
         }
-        private void FillDgv() 
+        private void FillDGVStudent()
         {
+            
             dgvPeople.DataSource = studentManager.GetAll().ToList();
         }
-        private void btnAdd_Click(object sender, EventArgs e) 
-        {   
-           
-            var frmNewPerson=new FrmPerson();
-            {
-                frmNewPerson.Text = "شخص جدید";
-            }
-            
-            if(frmNewPerson.ShowDialog()==DialogResult.OK) 
-            {
-                FillDgv();
-            }
+       /* private void FillDgv() 
+        {
+            dgvPeople.DataSource = studentManager.GetAll().ToList();
+        }*/
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            FrmPerson person = new FrmPerson(FillDGVStudent);
+            person.Text = "شخص جدید";
+            person.Show();
            
         }
         private void dgvPeople_CellcontentClick(object sender, DataGridViewCellEventArgs e) 
@@ -54,7 +59,9 @@ namespace PersonManagerDGV
                 if(student != null)
                 {
                     studentManager.Remove(student);
-                    FillDgv();
+                    FillDGVStudent();
+                    
+                   // FillDgv();
                 }
             }
             else if (e.ColumnIndex == dgvPeople.Columns[ColEdit.Name].Index && e.RowIndex >= 0) 
@@ -69,7 +76,7 @@ namespace PersonManagerDGV
                 }
                 if (frmNewPerson.ShowDialog() == DialogResult.OK)
                 {
-                    FillDgv();
+                    FillDGVStudent();
                 }
                
             }

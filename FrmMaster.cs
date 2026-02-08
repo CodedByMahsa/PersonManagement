@@ -13,14 +13,22 @@ namespace PersonManagerDGV
     public partial class FrmMaster : Form
     {
         TeacherManager teacherManager;
+        FrmShowMasters frmShowMasters;
+        Action _action;
         public Teacher teacher { get; set; }
-        public FrmMaster(TeacherManager manager)
+        public FrmMaster()
         {
             InitializeComponent();
             teacherManager = new TeacherManager();
-            
+            frmShowMasters = new FrmShowMasters();
         }
-        
+        public FrmMaster(Action action)
+        {
+            InitializeComponent();
+            teacherManager = new TeacherManager();
+            _action = action;
+        }
+
         private void FrmMaster_Load(object sender, EventArgs e)
         {
             if (teacher != null)
@@ -62,31 +70,9 @@ namespace PersonManagerDGV
             else
                 teacher.Gender = Genders.Unknown;
 
-            //teacherManager.AddTeacher(teacher);
-          //  DialogResult = DialogResult.OK;
-            /* bool isEdit = teacher != null;
-             if (teacher == null)
-             {
-                 teacher = new Teacher();
-             }
-             else
-             {
-                 isEdit = true;
-             }
-             teacher.FirstName = txtFName.Text;
-             teacher.LastName = txtLName.Text;
-
-             teacher.NationalCode = txtNationalCode.Text;
-             teacher.PhoneNumber = txtPhoneNum.Text;
-             teacher.Address = txtAddress.Text;
-             teacher.Major= txtMajor.Text;
-             if (rBtnFemale.Checked)
-                 teacher.Gender = Genders.Female;
-             else if (rBtnMale.Checked)
-                 teacher.Gender = Genders.Male;
-             else
-                 teacher.Gender = Genders.Unknown;*/
+            
             OperationResult result;
+
             if (isEdit)
             {
                 teacherManager.Edit(teacher);
@@ -104,34 +90,11 @@ namespace PersonManagerDGV
             }
 
             DialogResult = DialogResult.OK;
-            CleanForm();
-            /* if (!isEdit)
-             {
-                 teacherManager.Add(teacher);
-                 Teacher teacher1 = new Teacher();
-                 teacher1.FirstName = teacher.FirstName;
-                 teacher1.LastName = teacher.LastName;
-                 teacher1.NationalCode = teacher.NationalCode;
-                 teacher1.Gender = teacher.Gender;
-                 teacher1.PhoneNumber = txtPhoneNum.Text;
-                 teacher1.Address = txtAddress.Text;
-                 teacher1.Major = txtMajor.Text;
-             }*/
-            //TeacherCreated?.Invoke(teacher);
-           /* OperationResult operation = teacher.Validate();
-            if (!operation.IsSuccess)
-            {
-                AlertHelper.ShowError(operation.Message!);
-                return;
-            }
-            else
-            {
-               // teacherManager.AddTeacher(teacher);
-                DialogResult = DialogResult.OK;
-            }
-
-            CleanForm();*/
+            _action?.Invoke();
+             CleanForm();
+           
         }
+     
         private void CleanForm()
         {
             txtFName.Text = null;

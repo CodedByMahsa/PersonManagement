@@ -14,14 +14,20 @@ namespace PersonManagerDGV
 {
     public partial class FrmPerson : Form
     {
-        //PersonManager personManager;
         StudentManager studentManager;
+        FrmShowMasters frmShowMasters;
+        Action _action;
         public Student student { get; set; }
         public FrmPerson()
         {
             InitializeComponent();
-            //personManager = new PersonManager();
             studentManager = new StudentManager();
+        }
+        public FrmPerson(Action action)
+        {
+            InitializeComponent();
+            studentManager = new StudentManager();
+            _action = action;
         }
         private void FrmPerson_Load(object sender, EventArgs e)
         {
@@ -54,7 +60,6 @@ namespace PersonManagerDGV
             }
             student.FirstName = txtFName.Text;
             student.LastName = txtLName.Text;
-
             student.NationalCode = txtNationalCode.Text;
             student.StudentCode = txtStudentCode.Text;
             student.Grade = int.Parse(txtGrade.Text);
@@ -66,7 +71,6 @@ namespace PersonManagerDGV
                 student.Gender = Genders.Unknown;
             if (!isEdit)
             {
-                studentManager.Add(student);
                 Student student1 = new Student();
                 student1.FirstName = student.FirstName;
                 student1.LastName = student.LastName;
@@ -75,55 +79,11 @@ namespace PersonManagerDGV
                 student1.StudentCode = student.StudentCode;
                 student1.Grade = int.Parse(this.txtGrade.Text);
             }
-            OperationResult operation = student.Validate();
-            if (!operation.IsSuccess)
-            {
-                AlertHelper.ShowError(operation.Message!);
-                return;
-            }
-            else
-                DialogResult = DialogResult.OK;
-
-            txtFName.Text = null;
-            txtLName.Text = null;
-            txtNationalCode.Text = null;
-            txtStudentCode.Text = null;
-            txtGrade.Text = null;
-            rBtnFemale.Checked = false;
-            rBtnMale.Checked = false;
-            rBtnFemale.Checked = true;
-
-        }
-        public void btnSaveAndReturn_Click(object sender, EventArgs e)
-        {
-            bool isEdit = false;
-            if (student == null)
-            {
-                student = new Student();
-            }
-            else
-            {
-                btnSaveAndNew.Enabled = false;
-                isEdit = true;
-            }
-            student.FirstName = txtFName.Text;
-            student.LastName = txtLName.Text;
-            student.NationalCode = txtNationalCode.Text;
-            student.StudentCode = txtStudentCode.Text;
-            student.Grade = int.Parse(txtGrade.Text);
-
-            if (rBtnFemale.Checked)
-                student.Gender = Genders.Female;
-            else if (rBtnMale.Checked)
-                student.Gender = Genders.Male;
-            else
-                student.Gender = Genders.Unknown;
-
             OperationResult result;
-
-            if (isEdit == true)
+            if (isEdit)
             {
-                result = studentManager.Edit(student);
+                studentManager.Edit(student);
+                result = OperationResult.Success(Messages.EditSuccessStudent);
             }
             else
             {
@@ -134,8 +94,64 @@ namespace PersonManagerDGV
                 AlertHelper.ShowError(result.Message!);
                 return;
             }
+
+            DialogResult = DialogResult.OK;
+            _action?.Invoke();
+            CleanForm();
+        }
+       
+        public void btnSaveAndReturn_Click(object sender, EventArgs e)
+        {
+            bool isEdit = false;
+            if (student == null)
+            {
+                student = new Student();
+            }
             else
-                DialogResult = DialogResult.OK;
+            {
+                isEdit = true;
+            }
+            student.FirstName = txtFName.Text;
+            student.LastName = txtLName.Text;
+            student.NationalCode = txtNationalCode.Text;
+            student.StudentCode = txtStudentCode.Text;
+            student.Grade = int.Parse(txtGrade.Text);
+            if (rBtnFemale.Checked)
+                student.Gender = Genders.Female;
+            else if (rBtnMale.Checked)
+                student.Gender = Genders.Male;
+            else
+                student.Gender = Genders.Unknown;
+            if (!isEdit)
+            {
+                Student student1 = new Student();
+                student1.FirstName = student.FirstName;
+                student1.LastName = student.LastName;
+                student1.NationalCode = student.NationalCode;
+                student1.Gender = student.Gender;
+                student1.StudentCode = student.StudentCode;
+                student1.Grade = int.Parse(this.txtGrade.Text);
+            }
+            OperationResult result;
+            if (isEdit)
+            {
+                studentManager.Edit(student);
+                result = OperationResult.Success(Messages.EditSuccessStudent);
+            }
+            else
+            {
+                result = studentManager.Add(student);
+            }
+            if (!result.IsSuccess)
+            {
+                AlertHelper.ShowError(result.Message!);
+                return;
+            }
+
+           // DialogResult = DialogResult.OK;
+           this.Close();
+            _action?.Invoke();
+            CleanForm();
             /* student.FirstName = txtFName.Text;
              student.LastName = txtLName.Text;
              student.NationalCode = txtNationalCode.Text;
@@ -161,21 +177,25 @@ namespace PersonManagerDGV
                   Student student = new Student();*/
 
         }
+        private void CleanForm()
+        {
+            txtFName.Text = null;
+            txtLName.Text = null;
+            txtNationalCode.Text = null;
+            txtGrade.Text = null;
+            txtStudentCode.Text = null;
+            rBtnFemale.Checked = false;
+            rBtnMale.Checked = false;
+            rBtnFemale.Checked = true;
+            rBtnMale.Checked = false;
+            rBtnFemale.Checked = false;
+            rBtnUnknown.Checked = true;
+        }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-        /*OperationResult operation = student.Validate();
-if (!operation.IsSuccess)
-{
-   AlertHelper.ShowError(operation.Message!);
-   return;
-}
-else
-   DialogResult = DialogResult.OK;
-}*/
-
     }
 }
 

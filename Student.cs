@@ -14,7 +14,7 @@ namespace PersonManagerDGV
 
         public override string FullName 
         {
-            get { return $"Student: {FirstName} {LastName} {Grade}";}
+            get { return $"Student: {FirstName} {LastName} ";}
         }
 
         public override string ToString()

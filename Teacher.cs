@@ -13,7 +13,12 @@ namespace PersonManagerDGV
         public string PhoneNumber { get; set; }
         public string Major { get; set; }
 
-        public override bool Equals(object? obj)
+        public override string FullName
+        {
+            get { return $"Student: {FirstName} {LastName} "; }
+        }
+
+        /*public override bool Equals(object? obj)
         {
             if (obj == null)
                 return false;
@@ -28,7 +33,7 @@ namespace PersonManagerDGV
                 }
                 else return false;
             }
-        }
+        }*/
         
         public override OperationResult Validate()
         {
